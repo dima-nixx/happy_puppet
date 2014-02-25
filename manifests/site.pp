@@ -3,7 +3,7 @@ node default {
 		class {"ssh::server":port => 22,}
 		}
 
-node www inherits default {
+node /^www/ inherits default {
 		class {'nginx':}
 		nginx::resource::vhost { "$hostname.of" :
 			server_name => [$ipaddress, "$hostname.of"],
