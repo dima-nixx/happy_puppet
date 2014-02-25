@@ -4,9 +4,9 @@ node default {
 		}
 
 node www inherits default {
-	class {'nginx':}
-		nginx::resource::vhost { 'debian.of':
-			server_name => ['10.0.1.121', 'debian.of'],
+		class {'nginx':}
+		nginx::resource::vhost { "$hostname.of" :
+			server_name => [$ipaddress, "$hostname.of"],
 			ensure   => present,
     			www_root => '/var/www/',
 			ssl      => 'true',
@@ -15,7 +15,7 @@ node www inherits default {
 			}
 		nginx::resource::location { '123':
 			ensure => 'present',
-			vhost => 'debian.of',
+			vhost => "$hostname.of",
 			location => '~ \.php',
 			fastcgi => 'unix:/var/run/php5-fpm.sock',
 			www_root => '/var/www/',
