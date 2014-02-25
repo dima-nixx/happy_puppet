@@ -1,29 +1,18 @@
 node default {
 	include '::ntp'
-		
-	class { 'ssh::server':
-        options => {
-		'PasswordAuthentication' => 'yes',
-        	'PermitRootLogin'        => 'yes',
-        	'Port'                   => [22, 2222],
-     		}
-	}
-    }
-
+		class {"ssh::server":port => 22,}
+		}
 
 node /^www/ inherits default {
-		
 		class {'nginx':}
-		
 		nginx::resource::vhost { "$hostname.of" :
-			server_name => [$ipaddress, "$hostname.of", '192.168.0.121'],
+			server_name => [$ipaddress, "$hostname.of"],
 			ensure   => present,
     			www_root => '/var/www/',
 			ssl      => 'true',
 			ssl_cert => '/tmp/server.crt',
 			ssl_key  => '/tmp/server.pem',
 			}
-			
 		nginx::resource::location { '123':
 			ensure => 'present',
 			vhost => "$hostname.of",
@@ -33,15 +22,8 @@ node /^www/ inherits default {
 			}
 
 		include phpfpm
-		
 		class { '::mysql::server':
  			root_password    => 'root',
-  			}
-			
-			database {test:
-				ensure => present,
-				charset => 'utf8',
-				require => Class['mysql::server'],
-				}
-		
+  			override_options => { 'mysqld' => { 'max_connections' => '1024' } }
+}
 	}

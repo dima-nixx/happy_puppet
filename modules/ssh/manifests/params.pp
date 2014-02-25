@@ -1,28 +1,52 @@
 class ssh::params {
   case $::osfamily {
-    'Debian': {
+    debian: {
+      $server_package_name = 'openssh-server'
+      $client_package_name = 'openssh-client'
+      $sshd_config = '/etc/ssh/sshd_config'
+      $ssh_config = '/etc/ssh/ssh_config'
+      $ssh_known_hosts = '/etc/ssh/ssh_known_hosts'
       $service_name = 'ssh'
     }
-    'RedHat': {
+    redhat: {
+      $server_package_name = 'openssh-server'
+      $client_package_name = 'openssh-clients'
+      $sshd_config = '/etc/ssh/sshd_config'
+      $ssh_config = '/etc/ssh/ssh_config'
+      $ssh_known_hosts = '/etc/ssh/ssh_known_hosts'
       $service_name = 'sshd'
     }
     default: {
-      fail("Unsupported osfamily $::osfamily, currently only supports Debian and RedHat")
-    }
-  }
-  case $::operatingsystem {
-    'Debian': {
-      case $::operatingsystemrelease {
-        /^7.*$/ : {
-          $host_keys=['/etc/ssh/ssh_host_rsa_key','/etc/ssh/ssh_host_dsa_key','/etc/ssh/ssh_host_ecdsa_key']
+      case $::operatingsystem {
+        gentoo: {
+          $server_package_name = 'openssh'
+          $client_package_name = 'openssh'
+          $sshd_config = '/etc/ssh/sshd_config'
+          $ssh_config = '/etc/ssh/ssh_config'
+          $ssh_known_hosts = '/etc/ssh/ssh_known_hosts'
+          $service_name = 'sshd'
         }
-        default : {
-          $host_keys=['/etc/ssh/ssh_host_rsa_key','/etc/ssh/ssh_host_dsa_key']
+        default: {
+          fail("Unsupported platform: ${::osfamily}/${::operatingsystem}")
         }
       }
     }
-    default : {
-      $host_keys=['/etc/ssh/ssh_host_rsa_key','/etc/ssh/ssh_host_dsa_key']
-    }
+  }
+
+  $sshd_default_options = {
+    'ChallengeResponseAuthentication' => 'no',
+    'X11Forwarding'                   => 'yes',
+    'PrintMotd'                       => 'no',
+    'AcceptEnv'                       => 'LANG LC_*',
+    'Subsystem'                       => 'sftp /usr/lib/openssh/sftp-server',
+    'UsePAM'                          => 'yes',
+  }
+
+  $ssh_default_options = {
+    'Host *'                 => {
+      'SendEnv'              => 'LANG LC_*',
+      'HashKnownHosts'       => 'yes',
+      'GSSAPIAuthentication' => 'yes',
+    },
   }
 }

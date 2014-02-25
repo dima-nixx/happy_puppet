@@ -1,13 +1,11 @@
-name 'attachmentgenie-ssh'
-version '1.2.2'
+name    'saz-ssh'
+version '2.0.0'
+source 'git://github.com/saz/puppet-ssh.git'
+author 'saz'
+license 'Apache License, Version 2.0'
+summary 'UNKNOWN'
+description 'Manage SSH client and server via puppet'
+project_page 'https://github.com/saz/puppet-ssh'
 
-author 'Eivind Uggedal <eivind@uggedal.com>'
-license 'MIT License'
-project_page 'https://github.com/attachmentgenie/puppet-module-ssh'
-source 'git://github.com/attachmentgenie/puppet-module-ssh.git'
-summary 'Puppet ssh Module'
-description 'Module for configuring ssh.
-
-Tested on Debian GNU/Linux 6.0 Squeeze and Ubuntu 10.4 LTS and 12.04 LTS with
-Puppet 2.6 and 2.7. Patches for other operating systems are welcome.'
-dependency 'puppetlabs/stdlib', '>=2.2.1'
+## Add dependencies, if any:
+dependency 'puppetlabs/stdlib', '>= 2.2.1'

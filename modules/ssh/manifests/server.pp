@@ -1,38 +1,22 @@
 class ssh::server(
-  $port='22',
-  $allowed_users=[],
-  $allowed_groups=[],
-  $x11_forwarding='no',
-  $password_authentication='no',
-  $subsystem_sftp='/usr/lib/openssh/sftp-server',
-  $permit_root_login='no',
-  $host_keys=$ssh::params::host_keys,
-  $manage_service=true
+  $options         = {}
 ) inherits ssh::params {
-  package { 'openssh-server':
-    ensure => present,
-  }
+  $merged_options = merge($ssh::params::sshd_default_options, $options)
 
-  file { '/etc/ssh/sshd_config':
-    content => template('ssh/sshd_config.erb'),
-    require => Package['openssh-server'],
-    owner => root,
-    group => root,
-    mode  => '0644'
-  }
+  include ssh::server::install
+  include ssh::server::config
+  include ssh::server::service
+  include ssh::hostkeys
+  include ssh::knownhosts
 
-  if $manage_service {
-    service { 'ssh':
-      ensure    => running,
-      name      => $ssh::params::service_name,
-      enable    => true,
-      hasstatus => true,
-      subscribe => [Package['openssh-server'], File['/etc/ssh/sshd_config']],
-      require   => File['/etc/ssh/sshd_config'],
-    }
-  }
+  anchor { 'ssh::server::start': }
+  anchor { 'ssh::server::end': }
 
-  if $permit_root_login == 'true' {
-    notify { "You permit root login: use it with caution.": }
-  }
+  Anchor['ssh::server::start'] ->
+  Class['ssh::server::install'] ->
+  Class['ssh::server::config'] ~>
+  Class['ssh::server::service'] ->
+  Class['ssh::hostkeys'] ->
+  Class['ssh::knownhosts'] ->
+  Anchor['ssh::server::end']
 }

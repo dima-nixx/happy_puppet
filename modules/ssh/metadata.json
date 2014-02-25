@@ -1,38 +1,42 @@
 {
+  "name": "saz-ssh",
+  "version": "2.0.0",
+  "source": "git://github.com/saz/puppet-ssh.git",
+  "author": "saz",
+  "license": "Apache License, Version 2.0",
+  "summary": "UNKNOWN",
+  "description": "Manage SSH client and server via puppet",
+  "project_page": "https://github.com/saz/puppet-ssh",
+  "dependencies": [
+    {
+      "name": "puppetlabs/stdlib",
+      "version_requirement": ">= 2.2.1"
+    }
+  ],
   "types": [
 
   ],
   "checksums": {
-    "spec/spec_helper.rb": "ddc175c6eee825ecfc7d8a4f4e283554",
-    "manifests/params.pp": "2a2200856f28b02aea700180fb5221ed",
-    "manifests/client.pp": "22b9e16b33a4f37f99799cc91293646d",
-    "tests/user.pp": "d41d8cd98f00b204e9800998ecf8427e",
-    "tests/client.pp": "8281bd15019d7327806c64717c7f395d",
-    "spec/classes/server_spec.rb": "c963474f3c0c06f973cbd7801a4cb760",
-    "manifests/user.pp": "9346cc5b016e86d2b6b76d78fda2973a",
-    "tests/server.pp": "18e303b8268e0e501ddf0f09fd60a990",
-    "Gemfile": "e37cb17be16042f9c5aa4c3970d07532",
-    "manifests/server.pp": "e5b202317bedf179d59c58880354ebe2",
-    "manifests/init.pp": "cfdee5bf87cda323d75be0d8f7e3cc50",
+    "LICENSE": "d6869a585931245be85fd4aece485172",
+    "Modulefile": "fea1cb000adcc4720ec69594e874ee52",
+    "README.markdown": "bfbcfe7a53ab15069b51cbd4de10e286",
+    "files/sshd_config": "ba9c3f808c811d6f944ad10a508c4767",
+    "lib/puppet/parser/functions/ipaddresses.rb": "adc01307a215594da64f74a5eeacc0ee",
+    "manifests/client/config.pp": "d05eb2ad45be688e2590df31a3ca75bc",
+    "manifests/client/install.pp": "c7f6a8a13294b2a2190ee0ba482e965f",
+    "manifests/client.pp": "d2864339ec7b484c486948225bef4b97",
+    "manifests/hostkeys.pp": "a1c9bbc22c79a4238537938ec1f56896",
+    "manifests/init.pp": "36c6025fe67e6cccd21bba672d9ae60d",
+    "manifests/knownhosts.pp": "e71112dbec416901052039150e96a3a9",
+    "manifests/params.pp": "ab6bcae8309ddcaac49c66a6cc314cc0",
+    "manifests/server/config.pp": "c7a026de06237b05458ff3c0d117b378",
+    "manifests/server/install.pp": "a9dc6e99436303f46b9feef99356a559",
+    "manifests/server/service.pp": "739e0be2fca6e93926da148c38199595",
+    "manifests/server.pp": "063d589651017843456a290e52826661",
     "spec/spec.opts": "a600ded995d948e393fbe2320ba8e51c",
-    "README.md": "cb716880440b242f480b45bc1356d6d3",
-    "Rakefile": "920d2f3ed2328c885619362ecd99bcd5",
-    "Modulefile": "880602bb39f64d212d33e3d13c67dd1a",
-    "LICENSE": "2d9c14720c9adef6ab3197a70adb690c",
-    "templates/sshd_config.erb": "4bf2a70901b8c14cf0529c6a86200c0b"
-  },
-  "project_page": "https://github.com/attachmentgenie/puppet-module-ssh",
-  "description": "Module for configuring ssh.\n\nTested on Debian GNU/Linux 6.0 Squeeze and Ubuntu 10.4 LTS and 12.04 LTS with\nPuppet 2.6 and 2.7. Patches for other operating systems are welcome.",
-  "summary": "Puppet ssh Module",
-  "source": "git://github.com/attachmentgenie/puppet-module-ssh.git",
-  "dependencies": [
-    {
-      "version_requirement": ">=2.2.1",
-      "name": "puppetlabs/stdlib"
-    }
-  ],
-  "author": "Eivind Uggedal <eivind@uggedal.com>",
-  "version": "1.2.2",
-  "name": "attachmentgenie-ssh",
-  "license": "MIT License"
+    "spec/spec_helper.rb": "ca19ec4f451ebc7fdb035b52eae6e909",
+    "templates/ssh_config.erb": "54c7d82d2b85809292ebddd4ff314770",
+    "templates/sshd_config.erb": "5646775dcdf380e04c9ec62847974aa2",
+    "tests/init.pp": "423466ae46899d6a0480aa9910b096d2"
+  }
 }
